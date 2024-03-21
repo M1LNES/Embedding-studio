@@ -1,0 +1,52 @@
+{
+	"name": "embedding-studio",
+	"version": "1.0.0",
+	"description": "Embedding studio for previewing widgets and refreshing tokens.",
+	"main": "api/index.js",
+	"private": true,
+	"scripts": {
+		"dev": "node ./api/index.js ",
+		"build": "NODE_ENV=production webpack --config ./webpack.config.js",
+		"start": "NODE_ENV=production node $NODE_DEFAULT_OPTIONS ./api/index.js"
+	},
+	"engines": {
+		"node": "20.3.1"
+	},
+	"keywords": [],
+	"author": "Milan Janoch",
+	"license": "ISC",
+	"dependencies": {
+		"@mui/icons-material": "^5.14.16",
+		"@mui/joy": "^5.0.0-beta.13",
+		"@mui/material": "^5.14.13",
+		"@reduxjs/toolkit": "^1.9.7",
+		"axios": "^1.5.1",
+		"cors": "^2.8.5",
+		"dotenv": "^16.3.1",
+		"empli-embed": "^1.0.1-alpha.1.8",
+		"express": "^4.18.2",
+		"express-history-api-fallback": "^2.2.1",
+		"react-redux": "^8.1.3"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.23.0",
+		"@babel/preset-env": "^7.19.4",
+		"@babel/preset-react": "^7.22.15",
+		"@emotion/react": "^11.11.1",
+		"@emotion/styled": "^11.11.0",
+		"babel-loader": "^9.1.3",
+		"eslint": "^8.56.0",
+		"eslint-plugin-react": "^7.33.2",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"html-webpack-plugin": "^5.5.3",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"web-vitals": "^2.1.4",
+		"webpack": "^5.88.2",
+		"webpack-cli": "^4.10.0",
+		"webpack-dev-middleware": "^6.1.1",
+		"webpack-dev-server": "^4.11.1",
+		"webpack-hot-middleware": "^2.25.4",
+		"webpack-merge": "^5.9.0"
+	}
+}
