@@ -214,6 +214,7 @@ const Playground = () => {
 					showConfig={visualizationState.showConfig}
 					showConfigRevealed={visualizationState.showConfigRevealed}
 					style={visualizationState.style}
+					tokenFunc={getTokensFromLocalStorage}
 				/>
 			)
 		}
@@ -289,6 +290,13 @@ const Playground = () => {
 		)}\nOMNI_API_TOKEN=${localStorage.getItem('omni-studio-api-access-token')}`
 
 		navigator.clipboard.writeText(envText)
+	}
+
+	const getTokensFromLocalStorage = () => {
+		return {
+			omniApiToken: localStorage.getItem('omni-studio-api-access-token'),
+			publicApiToken: localStorage.getItem('public-api-access-token'),
+		}
 	}
 
 	return (
