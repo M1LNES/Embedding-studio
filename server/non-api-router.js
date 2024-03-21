@@ -11,9 +11,12 @@ const catchErr = (fn) => async (req, res, next) => {
 	}
 }
 
-nonApiRouter.get('/user/setup-public-api-token/:id', async (req, res) => {
-	res.redirect(getPublicApiCallbackUrl(req.params.id))
-})
+nonApiRouter.get(
+	'/user/setup-public-api-token/:id',
+	catchErr(async (req, res) => {
+		res.redirect(301, getPublicApiCallbackUrl(req.params.id))
+	})
+)
 
 function getPublicApiCallbackUrl(id) {
 	const oauthProviderUrl = process.env.OAUTH_PROVIDER_PUBLIC_API_URL
@@ -37,9 +40,12 @@ function getPublicApiCallbackUrl(id) {
 	return callbackUrlWithParams
 }
 
-nonApiRouter.get('/user/setup-omni-studio-api-token/:id', async (req, res) => {
-	res.redirect(getOmniStudioCallbackUrl(req.params.id))
-})
+nonApiRouter.get(
+	'/user/setup-omni-studio-api-token/:id',
+	catchErr(async (req, res) => {
+		res.redirect(301, getOmniStudioCallbackUrl(req.params.id))
+	})
+)
 
 function getOmniStudioCallbackUrl(id) {
 	const oauthProvider = process.env.OAUTH_PROVIDER_OMNI_STUDIO
