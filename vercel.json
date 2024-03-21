@@ -1,8 +1,0 @@
-{
-	"rewrites": [
-		{
-			"source": "/user/setup-public-api-token/(.*)",
-			"destination": "/user/setup-public-api-token/(.*)"
-		}
-	]
-}
