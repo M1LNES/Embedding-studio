@@ -14,7 +14,7 @@ const catchErr = (fn) => async (req, res, next) => {
 nonApiRouter.get(
 	'/user/setup-public-api-token/:id',
 	catchErr(async (req, res) => {
-		res.redirect(301, getPublicApiCallbackUrl(req.params.id))
+		res.redirect(getPublicApiCallbackUrl(req.params.id))
 	})
 )
 
@@ -43,7 +43,7 @@ function getPublicApiCallbackUrl(id) {
 nonApiRouter.get(
 	'/user/setup-omni-studio-api-token/:id',
 	catchErr(async (req, res) => {
-		res.redirect(301, getOmniStudioCallbackUrl(req.params.id))
+		res.redirect(getOmniStudioCallbackUrl(req.params.id))
 	})
 )
 
