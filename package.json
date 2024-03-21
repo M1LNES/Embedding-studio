@@ -9,9 +9,6 @@
 		"build": "NODE_ENV=production webpack --config ./webpack.config.js",
 		"start": "NODE_ENV=production node $NODE_DEFAULT_OPTIONS ./api/index.js"
 	},
-	"engines": {
-		"node": "20.3.1"
-	},
 	"keywords": [],
 	"author": "Milan Janoch",
 	"license": "ISC",
