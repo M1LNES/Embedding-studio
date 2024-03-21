@@ -2,7 +2,6 @@ const express = require('express')
 const apiRouter = require('../server/api-router')
 const nonApiRouter = require('../server/non-api-router')
 const { routes } = require('empli-embed')
-console.log(routes)
 const cors = require('cors')
 const path = require('path')
 
