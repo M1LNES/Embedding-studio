@@ -18,9 +18,11 @@ const port = process.env.PORT || 5000
 const DIST_DIR = path.resolve(__dirname, '../dist')
 
 const start = () => {
+	let wdMiddleware = null
+
 	app.use('/api', routes)
 	app.use('/api', apiRouter)
-	app.use('/api', nonApiRouter)
+	app.use('/', nonApiRouter)
 
 	if (process.env.NODE_ENV === 'production') {
 		app.use('/vendor', express.static(path.resolve(DIST_DIR, 'vendor')))
