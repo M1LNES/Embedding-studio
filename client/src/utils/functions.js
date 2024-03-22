@@ -29,7 +29,7 @@ export async function getPublicApiToken(id) {
 			},
 			body: JSON.stringify({ requestID: id, token: null }),
 		})
-		while (token === null) {
+		while (token === null && token !== 'undefined') {
 			await sleep(500)
 
 			const tokenResponse = await fetch(`/api/public-api-token/${id}`, {
