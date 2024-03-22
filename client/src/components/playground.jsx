@@ -214,7 +214,7 @@ const Playground = () => {
 					showConfig={visualizationState.showConfig}
 					showConfigRevealed={visualizationState.showConfigRevealed}
 					style={visualizationState.style}
-					tokenFunc={getTokensFromLocalStorage}
+					// tokenFunc={getTokensFromLocalStorage}
 				/>
 			)
 		}
