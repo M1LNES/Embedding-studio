@@ -1,6 +1,5 @@
 const express = require('express')
 const axios = require('axios')
-
 const apiRouter = express.Router()
 
 let publicApiTokenRequests = []
@@ -71,27 +70,33 @@ apiRouter.get('/callback', async (req, res) => {
 	if (res.req.query.code) {
 		const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
 
-		const tokenResponse = await (
-			await fetch(`${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`, {
-				method: 'post',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/x-www-form-urlencoded',
-					Authorization: getAuthorization(),
-				},
-				body: `grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
-			})
-		).json()
-		const index = publicApiTokenRequests.findIndex(
-			(obj) => obj.requestID === req.query.state
-		)
-		if (index !== -1) {
-			publicApiTokenRequests[index].token = tokenResponse
-		} else {
-			console.error('Object not found with id:', req.query.state)
-		}
+		try {
+			const tokenResponse = await axios.post(
+				`${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`,
+				`grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
+				{
+					headers: {
+						Accept: 'application/json',
+						'Content-Type': 'application/x-www-form-urlencoded',
+						Authorization: getAuthorization(),
+					},
+				}
+			)
 
-		return res.send('<script>window.close();</script > ')
+			const index = publicApiTokenRequests.findIndex(
+				(obj) => obj.requestID === req.query.state
+			)
+			if (index !== -1) {
+				publicApiTokenRequests[index].token = tokenResponse.data
+			} else {
+				console.error('Object not found with id:', req.query.state)
+			}
+
+			return res.send('<script>window.close();</script>')
+		} catch (error) {
+			console.error('Error fetching token:', error.message)
+			return res.status(500).send('Internal Server Error')
+		}
 	}
 
 	return res.send(null)
