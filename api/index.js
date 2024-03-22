@@ -19,11 +19,9 @@ const DIST_DIR = path.resolve(__dirname, '../dist')
 
 const start = () => {
 	let wdMiddleware = null
-	const combinedRouter = express.Router()
-	combinedRouter.use(routes)
-	combinedRouter.use(apiRouter)
-	app.use('/api', combinedRouter)
-	// app.use('/api', apiRouter)
+
+	app.use('/api', routes)
+	app.use('/api', apiRouter)
 	app.use('/', nonApiRouter)
 
 	if (process.env.NODE_ENV === 'production') {
