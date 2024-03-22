@@ -99,6 +99,7 @@ apiRouter.get('/callback', async (req, res) => {
 apiRouter.get('/public-api-token/:id', async (req, res) => {
 	const { id } = req.params
 	const tokenObject = publicApiTokenRequests.find((obj) => obj.requestID === id)
+	console.log(publicApiTokenRequests)
 	if (tokenObject) {
 		res.send(tokenObject)
 	} else {
