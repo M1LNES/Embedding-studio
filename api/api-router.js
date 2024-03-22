@@ -38,10 +38,10 @@ function getAuthorization() {
 
 apiRouter.get('/callback-omni-token', async (req, res) => {
 	const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
-	const response = await fetch(
+	const response = await axios.post(
 		`${process.env.OAUTH_PROVIDER_OMNI_STUDIO}/token`,
+		`grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
 		{
-			method: 'post',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,10 +49,9 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 					`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
 				).toString('base64')}`,
 			},
-			body: `grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
 		}
 	)
-	const responseBody = await response.json()
+	const responseBody = response.data
 	if (responseBody.error)
 		throw new Error(responseBody.error + ': ' + responseBody.error_description)
 	const index = omniStudioApiTokenRequests.findIndex(
@@ -71,22 +70,24 @@ apiRouter.get('/callback', async (req, res) => {
 	if (res.req.query.code) {
 		const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
 
-		const tokenResponse = await (
-			await fetch(`${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`, {
-				method: 'post',
+		const tokenResponse = await axios.post(
+			`${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`,
+			`grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
+			{
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/x-www-form-urlencoded',
-					Authorization: getAuthorization(),
+					Authorization: getAuthorization(), // Assuming getAuthorization() returns the authorization header value
 				},
-				body: `grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
-			})
-		).json()
+			}
+		)
+
+		const responseData = tokenResponse.data
 		const index = publicApiTokenRequests.findIndex(
 			(obj) => obj.requestID === req.query.state
 		)
 		if (index !== -1) {
-			publicApiTokenRequests[index].token = tokenResponse
+			publicApiTokenRequests[index].token = responseData
 		} else {
 			console.error('Object not found with id:', req.query.state)
 		}
