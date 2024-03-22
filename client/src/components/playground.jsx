@@ -456,9 +456,9 @@ const Playground = () => {
 						<Button
 							onClick={handleButtonClick}
 							variant='contained'
-							disabled={
-								!publicApiTokenState.valid || !omniStudioTokenState.valid
-							}
+							// disabled={
+							// 	!publicApiTokenState.valid || !omniStudioTokenState.valid
+							// }
 						>
 							Preview
 						</Button>
