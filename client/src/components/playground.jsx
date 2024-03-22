@@ -214,7 +214,7 @@ const Playground = () => {
 					showConfig={visualizationState.showConfig}
 					showConfigRevealed={visualizationState.showConfigRevealed}
 					style={visualizationState.style}
-					// tokenFunc={getTokensFromLocalStorage}
+					tokenFunc={getTokensFromLocalStorage}
 				/>
 			)
 		}
@@ -224,7 +224,7 @@ const Playground = () => {
 
 	const connectPublicApiToken = useCallback(async () => {
 		const id = makeRequestID()
-		window.open(`/user/setup-public-api-token/${id}`, '_blank')
+		window.open(`/non-api/user/setup-public-api-token/${id}`, '_blank')
 		const token = await getPublicApiToken(id)
 
 		if (token !== null) {
@@ -236,7 +236,7 @@ const Playground = () => {
 
 	const connectOmniStudioToken = useCallback(async () => {
 		const id = makeRequestID()
-		window.open(`/user/setup-omni-studio-api-token/${id}`, '_blank')
+		window.open(`/non-api/user/setup-omni-studio-api-token/${id}`, '_blank')
 		const token = await getOmniStudioApiToken(id)
 		if (token !== null) {
 			localStorage.setItem('omni-studio-api-access-token', token.access_token)
@@ -456,9 +456,9 @@ const Playground = () => {
 						<Button
 							onClick={handleButtonClick}
 							variant='contained'
-							// disabled={
-							// 	!publicApiTokenState.valid || !omniStudioTokenState.valid
-							// }
+							disabled={
+								!publicApiTokenState.valid || !omniStudioTokenState.valid
+							}
 						>
 							Preview
 						</Button>
