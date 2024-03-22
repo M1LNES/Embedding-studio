@@ -29,7 +29,7 @@ export async function getPublicApiToken(id) {
 			},
 			body: JSON.stringify({ requestID: id, token: null }),
 		})
-		while (token === null && token !== undefined) {
+		while (token === null) {
 			await sleep(500)
 
 			const tokenResponse = await fetch(`/api/public-api-token/${id}`, {
@@ -38,6 +38,7 @@ export async function getPublicApiToken(id) {
 					'Content-Type': 'application/json',
 				},
 			})
+			console.log('TR: ', tokenResponse)
 			if (tokenResponse.ok) {
 				token = await tokenResponse.json()
 				token = token.token
