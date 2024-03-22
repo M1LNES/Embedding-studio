@@ -22,7 +22,7 @@ const start = () => {
 
 	app.use('/api', routes)
 	app.use('/api', apiRouter)
-	app.use('/', nonApiRouter)
+	app.use('/api', nonApiRouter)
 
 	if (process.env.NODE_ENV === 'production') {
 		app.use('/vendor', express.static(path.resolve(DIST_DIR, 'vendor')))
