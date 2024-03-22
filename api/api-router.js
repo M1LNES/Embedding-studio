@@ -68,10 +68,11 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 })
 
 apiRouter.get('/callback', async (req, res) => {
-	console.log('IDK: ', res.req.query)
-	if (res.req.query.state) {
+	if (res.req.query.code) {
 		const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
 		console.log('URI: ', uri)
+		console.log(publicApiTokenRequests)
+
 		const tokenResponse = await (
 			await fetch(`${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`, {
 				method: 'post',
@@ -83,6 +84,7 @@ apiRouter.get('/callback', async (req, res) => {
 				body: `grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
 			})
 		).json()
+		console.log(publicApiTokenRequests, tokenResponse)
 		const index = publicApiTokenRequests.findIndex(
 			(obj) => obj.requestID === req.query.state
 		)
