@@ -1,7 +1,7 @@
 const express = require('express')
 const axios = require('axios')
+
 const apiRouter = express.Router()
-const fetch = require('node-fetch')
 
 let publicApiTokenRequests = []
 let omniStudioApiTokenRequests = []
@@ -38,10 +38,10 @@ function getAuthorization() {
 
 apiRouter.get('/callback-omni-token', async (req, res) => {
 	const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
-	const response = await axios.post(
+	const response = await fetch(
 		`${process.env.OAUTH_PROVIDER_OMNI_STUDIO}/token`,
-		`grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
 		{
+			method: 'post',
 			headers: {
 				Accept: 'application/json',
 				'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,9 +49,10 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 					`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
 				).toString('base64')}`,
 			},
+			body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
 		}
 	)
-	const responseBody = response.data
+	const responseBody = await response.json()
 	if (responseBody.error)
 		throw new Error(responseBody.error + ': ' + responseBody.error_description)
 	const index = omniStudioApiTokenRequests.findIndex(
@@ -70,24 +71,22 @@ apiRouter.get('/callback', async (req, res) => {
 	if (res.req.query.code) {
 		const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
 
-		const tokenResponse = await axios.post(
-			`${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`,
-			`grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
-			{
+		const tokenResponse = await (
+			await fetch(`${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`, {
+				method: 'post',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/x-www-form-urlencoded',
-					Authorization: getAuthorization(), // Assuming getAuthorization() returns the authorization header value
+					Authorization: getAuthorization(),
 				},
-			}
-		)
-
-		const responseData = tokenResponse.data
+				body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
+			})
+		).json()
 		const index = publicApiTokenRequests.findIndex(
 			(obj) => obj.requestID === req.query.state
 		)
 		if (index !== -1) {
-			publicApiTokenRequests[index].token = responseData
+			publicApiTokenRequests[index].token = tokenResponse
 		} else {
 			console.error('Object not found with id:', req.query.state)
 		}
