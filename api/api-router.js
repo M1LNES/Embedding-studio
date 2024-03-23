@@ -108,7 +108,7 @@ apiRouter.get('/public-api-token/:id', async (req, res) => {
 	if (tokenObject) {
 		res.send(tokenObject)
 	} else {
-		res.status(404).json({ message: 'Token not found' })
+		res.json({ message: 'Token not found' })
 	}
 })
 
@@ -120,7 +120,7 @@ apiRouter.get('/omni-studio-api-token/:id', async (req, res) => {
 	if (tokenObject) {
 		res.send(tokenObject)
 	} else {
-		res.status(404).json({ message: 'Token not found' })
+		res.json({ message: 'Token not found' })
 	}
 })
 
