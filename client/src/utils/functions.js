@@ -38,7 +38,6 @@ export async function getPublicApiToken(id) {
 					'Content-Type': 'application/json',
 				},
 			})
-			console.log('TR: ', tokenResponse)
 			if (tokenResponse.ok) {
 				token = await tokenResponse.json()
 				token = token.token

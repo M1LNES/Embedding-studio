@@ -38,6 +38,7 @@ function getAuthorization() {
 
 apiRouter.get('/callback-omni-token', async (req, res) => {
 	const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
+	console.log('OMNI URI: ', uri)
 	const response = await fetch(
 		`${process.env.OAUTH_PROVIDER_OMNI_STUDIO}/token`,
 		{
@@ -102,8 +103,6 @@ apiRouter.get('/callback', async (req, res) => {
 
 apiRouter.get('/public-api-token/:id', async (req, res) => {
 	const { id } = req.params
-	console.log('ID: ', id)
-	console.log('requesty: ', publicApiTokenRequests)
 
 	const tokenObject = publicApiTokenRequests.find((obj) => obj.requestID === id)
 	if (tokenObject) {
