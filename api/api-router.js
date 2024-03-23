@@ -39,20 +39,17 @@ function getAuthorization() {
 apiRouter.get('/callback-omni-token', async (req, res) => {
 	const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
 	console.log('OMNI URI: ', uri)
-	const response = await fetch(
-		`${process.env.OAUTH_PROVIDER_OMNI_STUDIO}/token`,
-		{
-			method: 'post',
-			headers: {
-				Accept: 'application/json',
-				'Content-Type': 'application/x-www-form-urlencoded',
-				Authorization: `Basic ${Buffer.from(
-					`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
-				).toString('base64')}`,
-			},
-			body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
-		}
-	)
+	const response = await fetch(`omni-studio.app.ccl/oauth2/token`, {
+		method: 'post',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/x-www-form-urlencoded',
+			Authorization: `Basic ${Buffer.from(
+				`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
+			).toString('base64')}`,
+		},
+		body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
+	})
 	const responseBody = await response.json()
 	if (responseBody.error)
 		throw new Error(responseBody.error + ': ' + responseBody.error_description)
