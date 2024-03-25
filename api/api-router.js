@@ -102,7 +102,7 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 
 apiRouter.get('/callback', async (req, res) => {
 	if (res.req.query.code) {
-		const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
+		const uri = `https://${req.get('host')}/api${req.path}`
 		const url = `${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`
 		const params = {
 			method: 'post',
