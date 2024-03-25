@@ -106,14 +106,6 @@ export async function getOmniStudioApiToken(id) {
 			}
 		}
 
-		// await fetch('/api/reset-omni-studio-api-token', {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 	},
-		// 	body: JSON.stringify({ id: id }),
-		// })
-
 		return token
 	} catch (error) {
 		console.error('Error fetching token from server:', error)

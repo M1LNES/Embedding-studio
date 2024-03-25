@@ -301,8 +301,8 @@ const Playground = () => {
 
 	const getTokensFromLocalStorage = () => {
 		return {
-			omniApiToken: localStorage.getItem('omni-studio-api-access-token'),
-			publicApiToken: localStorage.getItem('public-api-access-token'),
+			OMNI_API_TOKEN: localStorage.getItem('omni-studio-api-access-token'),
+			ACCESS_TOKEN: localStorage.getItem('public-api-access-token'),
 		}
 	}
 
