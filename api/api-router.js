@@ -37,20 +37,55 @@ function getAuthorization() {
 }
 
 apiRouter.get('/callback-omni-token', async (req, res) => {
+	// const public_url = process.env.PUBLIC_API_URL + '/3/omni-studio'
+	// const pathUrl = `/oauth2/token`
+	// const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
+
+	// const payload = {
+	// 	method: 'POST',
+	// 	path: pathUrl,
+	// 	headers: {
+	// 		Accept: 'application/json',
+	// 		'Content-Type': 'application/x-www-form-urlencoded',
+	// 		authorization: `Basic ${Buffer.from(
+	// 			`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
+	// 		).toString('base64')}`,
+	// 	},
+	// 	body: {
+	// 		grant_type: 'authorization_code',
+	// 		code: req.query.code,
+	// 		redirect_uri: uri,
+	// 	},
+	// }
+
+	// const response = await axios.post(public_url, payload, {
+	// 	headers: {
+	// 		Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+	// 		'content-type': `application/json`,
+	// 		'x-sbks-token': `oauth`,
+	// 	},
+	// })
+
+	// console.log(response.data)
+	// res.json(response.data)
 	const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
 	console.log('OMNI URI: ', uri)
-	const response = await fetch(`omni-studio.app.ccl/oauth2/token`, {
-		method: 'post',
-		headers: {
-			Accept: 'application/json',
-			'Content-Type': 'application/x-www-form-urlencoded',
-			Authorization: `Basic ${Buffer.from(
-				`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
-			).toString('base64')}`,
-		},
-		body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
-	})
+	const response = await fetch(
+		`${process.env.OAUTH_PROVIDER_OMNI_STUDIO}/token`,
+		{
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded',
+				Authorization: `Basic ${Buffer.from(
+					`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
+				).toString('base64')}`,
+			},
+			body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
+		}
+	)
 	const responseBody = await response.json()
+
 	if (responseBody.error)
 		throw new Error(responseBody.error + ': ' + responseBody.error_description)
 	const index = omniStudioApiTokenRequests.findIndex(
@@ -68,18 +103,19 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 apiRouter.get('/callback', async (req, res) => {
 	if (res.req.query.code) {
 		const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
+		const url = `${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`
+		const params = {
+			method: 'post',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/x-www-form-urlencoded',
+				Authorization: getAuthorization(),
+			},
+			body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
+		}
+		console.dir({ url, params }, { depth: null })
 
-		const tokenResponse = await (
-			await fetch(`${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`, {
-				method: 'post',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/x-www-form-urlencoded',
-					Authorization: getAuthorization(),
-				},
-				body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
-			})
-		).json()
+		const tokenResponse = await (await fetch(url, params)).json()
 		const index = publicApiTokenRequests.findIndex(
 			(obj) => obj.requestID === req.query.state
 		)
