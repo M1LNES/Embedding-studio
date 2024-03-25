@@ -114,6 +114,7 @@ apiRouter.get('/callback', async (req, res) => {
 			body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
 		}
 		console.dir({ url, params }, { depth: null })
+		console.log(JSON.stringify({ params, url }, null, 2))
 
 		const tokenResponse = await (await fetch(url, params)).json()
 		const index = publicApiTokenRequests.findIndex(
