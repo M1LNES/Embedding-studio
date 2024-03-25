@@ -10,6 +10,16 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal } from '../state/playground-ui-slice'
 
+/**
+ * React component representing a modal with a text field
+ *
+ * Used for easier modification of large payloads/inputs
+ *
+ * @param {string} label - The label for the text field.
+ * @param {string} id - The id for the text field.
+ *
+ * @returns {React.Element} - The JSX element representing the modal with a text field.
+ */
 const TextFieldModal = ({ label, id }) => {
 	const isOpen = (state) => state.playgroundUI.modalOpen[`${id}Modal`]
 	const getPlaygroundState = (state) => state.playground

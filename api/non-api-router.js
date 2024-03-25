@@ -2,6 +2,12 @@ const express = require('express')
 
 const nonApiRouter = express.Router()
 
+/**
+ * Middleware to catch errors and pass them to the error handler.
+ *
+ * @param {Function} fn - The asynchronous route handler function.
+ * @returns {Function} - The wrapped function.
+ */
 const catchErr = (fn) => async (req, res, next) => {
 	try {
 		await fn(req, res, next)
@@ -11,6 +17,13 @@ const catchErr = (fn) => async (req, res, next) => {
 	}
 }
 
+/**
+ * Route handler for setting up public API token.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @returns {void}
+ */
 nonApiRouter.get(
 	'/user/setup-public-api-token/:id',
 	catchErr(async (req, res) => {
@@ -18,6 +31,12 @@ nonApiRouter.get(
 	})
 )
 
+/**
+ * Generates the callback URL for setting up public API token.
+ *
+ * @param {string} id - The ID associated with the token request.
+ * @returns {string} - The generated callback URL.
+ */
 function getPublicApiCallbackUrl(id) {
 	const oauthProviderUrl = process.env.OAUTH_PROVIDER_PUBLIC_API_URL
 	const clientId = process.env.CLIENT_ID_PUBLIC_API
@@ -40,6 +59,13 @@ function getPublicApiCallbackUrl(id) {
 	return callbackUrlWithParams
 }
 
+/**
+ * Route handler for setting up Omni Studio API token.
+ *
+ * @param {Object} req - The Express request object.
+ * @param {Object} res - The Express response object.
+ * @returns {void}
+ */
 nonApiRouter.get(
 	'/user/setup-omni-studio-api-token/:id',
 	catchErr(async (req, res) => {
@@ -47,6 +73,12 @@ nonApiRouter.get(
 	})
 )
 
+/**
+ * Generates the callback URL for setting up Omni Studio API token.
+ *
+ * @param {string} id - The ID associated with the token request.
+ * @returns {string} - The generated callback URL.
+ */
 function getOmniStudioCallbackUrl(id) {
 	const oauthProvider = process.env.OAUTH_PROVIDER_OMNI_STUDIO
 	const clientId = process.env.CLIENT_ID_OMNI_STUDIO

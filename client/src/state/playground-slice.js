@@ -1,5 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { parseJSON } from '../utils/functions'
+
+/**
+ * Redux slice defining the playground reducer and its actions.
+ * Manages state related to playground configurations, including widget settings, visualization state,
+ * and token validation.
+ * This file exports action creators and the reducer function.
+ */
+
 const initialState = {
 	widgetID: null,
 	boardID: null,

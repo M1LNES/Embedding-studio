@@ -13,6 +13,12 @@ const MODAL_ID = 'codeModal'
 const isOpen = (state) => state.playgroundUI.modalOpen[MODAL_ID]
 const getPlaygroundState = (state) => state.playground
 
+/**
+ *
+ * This modal allows users to view and copy the code of a widget.
+ *
+ * @returns {React.Element} - The JSX element representing the widget code modal.
+ */
 const WidgetCodeModal = () => {
 	const { visualizationState, widgetCode } = useSelector(getPlaygroundState)
 	const open = useSelector(isOpen)

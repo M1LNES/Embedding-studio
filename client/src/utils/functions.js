@@ -1,3 +1,9 @@
+/**
+ * Parses a JSON string into a JavaScript object.
+ *
+ * @param {string} str - The JSON string to parse.
+ * @returns {Object|null} - The parsed JavaScript object, or null if parsing fails.
+ */
 export const parseJSON = (str) => {
 	try {
 		return JSON.parse(str)
@@ -6,6 +12,12 @@ export const parseJSON = (str) => {
 	}
 }
 
+/**
+ * Extracts and cleans a parameter value, returning null if it's empty or 'null'.
+ *
+ * @param {string} paramValue - The parameter value to clean.
+ * @returns {string|null} - The cleaned parameter value, or null if it's empty or 'null'.
+ */
 export const extractParameterValue = (paramValue) => {
 	const finalValue =
 		paramValue && paramValue.trim() !== '' && paramValue !== 'null'
@@ -14,11 +26,23 @@ export const extractParameterValue = (paramValue) => {
 	return finalValue
 }
 
+/**
+ * Parses a value to an integer, returning null if parsing fails.
+ *
+ * @param {string} value - The value to parse to an integer.
+ * @returns {number|null} - The parsed integer value, or null if parsing fails.
+ */
 export const parseToInteger = (value) => {
 	const parsedValue = parseInt(value)
 	return !isNaN(parsedValue) ? parsedValue : null
 }
 
+/**
+ * Asynchronously fetches a public API token from the server.
+ *
+ * @param {string} id - The ID associated with the token request.
+ * @returns {Promise<string|null>} - A promise resolving to the fetched token, or null if an error occurs.
+ */
 export async function getPublicApiToken(id) {
 	try {
 		let token = null
@@ -51,6 +75,12 @@ export async function getPublicApiToken(id) {
 	}
 }
 
+/**
+ * Asynchronously fetches an OmniStudio API token from the server.
+ *
+ * @param {string} id - The ID associated with the token request.
+ * @returns {Promise<string|null>} - A promise resolving to the fetched token, or null if an error occurs.
+ */
 export async function getOmniStudioApiToken(id) {
 	try {
 		let token = null
@@ -91,10 +121,21 @@ export async function getOmniStudioApiToken(id) {
 	}
 }
 
+/**
+ * Asynchronously waits for a specified amount of time.
+ *
+ * @param {number} ms - The number of milliseconds to wait.
+ * @returns {Promise<void>} - A promise that resolves after the specified time.
+ */
 function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
+/**
+ * Generates a random alphanumeric string to be used as a request ID.
+ *
+ * @returns {string} - The generated request ID.
+ */
 export const makeRequestID = () => {
 	let result = ''
 	const characters =

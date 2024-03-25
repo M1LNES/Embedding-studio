@@ -59,6 +59,12 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 
 const getPlaygroundState = (state) => state.playground
 
+/**
+ * Embedding playground used for creating public API and Omni Studio tokens.
+ * Also embedded widgets can be previewed here and easily copied by modal button.
+ *
+ * @returns {React.Element} - JSX element of playground
+ */
 const Playground = () => {
 	const queryParams = useMemo(
 		() => new URLSearchParams(window.location.search),
@@ -137,7 +143,8 @@ const Playground = () => {
 			)
 		} else {
 			const responseObject = await checkOmniStudioTokenValidity(
-				localStorage.getItem('omni-studio-api-access-token')
+				localStorage.getItem('omni-studio-api-access-token'),
+				localStorage.getItem('public-api-access-token')
 			)
 
 			dispatch(

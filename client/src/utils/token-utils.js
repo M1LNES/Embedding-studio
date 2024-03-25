@@ -30,12 +30,13 @@ export const checkPublicApiTokenValidity = async (token) => {
 	}
 }
 
-export const checkOmniStudioTokenValidity = async (token) => {
+export const checkOmniStudioTokenValidity = async (omniToken, publicToken) => {
 	try {
 		const response = await fetch('/api/omni-studio-me-endpoint', {
 			method: 'GET',
 			headers: {
-				'X-Token': token,
+				'X-OSToken': omniToken,
+				'X-PBToken': publicToken,
 			},
 		})
 
