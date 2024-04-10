@@ -139,6 +139,7 @@ apiRouter.get('/callback', async (req, res) => {
 	if (res.req.query.code) {
 		const uri = `https://${req.get('host')}/api${req.path}`
 		console.log(uri, publicApiTokenRequests, req.query.code)
+		console.log('STATE: ', req.query.state)
 		const url = `${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`
 		const params = {
 			method: 'post',
