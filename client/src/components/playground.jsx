@@ -235,6 +235,7 @@ const Playground = () => {
 		const token = await getPublicApiToken(id)
 
 		if (token !== null) {
+			console.log(token)
 			localStorage.setItem('public-api-access-token', token.access_token)
 			localStorage.setItem('public-api-refresh-token', token.refresh_token)
 			checkTokenAvailability()
