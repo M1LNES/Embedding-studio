@@ -6,12 +6,12 @@ const apiRouter = express.Router()
 /**
  * Array to store public API token requests.
  */
-var publicApiTokenRequests = []
+const publicApiTokenRequests = []
 
 /**
  * Array to store Omni Studio API token requests.
  */
-var omniStudioApiTokenRequests = []
+const omniStudioApiTokenRequests = []
 
 /**
  * Adds a new Omni Studio API token request to the array.
