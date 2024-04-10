@@ -70,8 +70,7 @@ function getAuthorization() {
  * @returns {void}
  */
 apiRouter.get('/callback-omni-token', async (req, res) => {
-	const uri = `$https://${req.get('host')}/api${req.path}`
-
+	const uri = `https://${req.get('host')}/api${req.path}`
 	const response = await fetch(
 		`${process.env.PUBLIC_API_URL}/3/omni-studio/oauth2/token`,
 		{
