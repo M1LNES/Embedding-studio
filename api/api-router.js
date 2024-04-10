@@ -151,9 +151,12 @@ apiRouter.get('/callback', async (req, res) => {
 		}
 
 		const tokenResponse = await (await fetch(url, params)).json()
+		console.log('TR:', tokenResponse)
 		const index = publicApiTokenRequests.findIndex(
 			(obj) => obj.requestID === req.query.state
 		)
+		console.log('ondex:', index)
+
 		if (index !== -1) {
 			publicApiTokenRequests[index].token = tokenResponse
 		} else {
