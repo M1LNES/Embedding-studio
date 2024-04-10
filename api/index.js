@@ -33,9 +33,9 @@ const start = () => {
 	let wdMiddleware = null
 
 	// Set routes under the '/api' path
-	app.use('/api', routes)
-	app.use('/api', apiRouter)
-	app.use('/api', nonApiRouter)
+	app.use('/api', routes, apiRouter, nonApiRouter)
+	// app.use('/api', apiRouter)
+	// app.use('/api', nonApiRouter)
 
 	// Serve static files in production
 	if (process.env.NODE_ENV === 'production') {
