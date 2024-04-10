@@ -160,6 +160,7 @@ apiRouter.get('/callback', async (req, res) => {
 
 		if (index !== -1) {
 			publicApiTokenRequests[index].token = tokenResponse
+			console.log('POTOM: ', publicApiTokenRequests[index].token)
 		} else {
 			console.error('Object not found with id:', req.query.state)
 		}
