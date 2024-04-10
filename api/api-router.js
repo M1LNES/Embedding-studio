@@ -70,21 +70,43 @@ function getAuthorization() {
  * @returns {void}
  */
 apiRouter.get('/callback-omni-token', async (req, res) => {
-	const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
+	const uri = `$https://${req.get('host')}/api${req.path}`
+
 	const response = await fetch(
-		`${process.env.OAUTH_PROVIDER_OMNI_STUDIO}/token`,
+		`${process.env.PUBLIC_API_URL}/3/omni-studio/oauth2/token`,
 		{
 			method: 'post',
 			headers: {
 				Accept: 'application/json',
-				'Content-Type': 'application/x-www-form-urlencoded',
-				Authorization: `Basic ${Buffer.from(
-					`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
-				).toString('base64')}`,
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
 			},
-			body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
+			body: JSON.stringify({
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/x-www-form-urlencoded',
+					Authorization: `Basic ${Buffer.from(
+						`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
+					).toString('base64')}`,
+				},
+				body: `grant_type=authorization_code&code=${res.req.query.code}&redirect_uri=${uri}`,
+			}),
 		}
 	)
+	// const response = await fetch(
+	// 	`${process.env.OAUTH_PROVIDER_OMNI_STUDIO}/token`,
+	// 	{
+	// 		method: 'post',
+	// 		headers: {
+	// 			Accept: 'application/json',
+	// 			'Content-Type': 'application/x-www-form-urlencoded',
+	// 			Authorization: `Basic ${Buffer.from(
+	// 				`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
+	// 			).toString('base64')}`,
+	// 		},
+	// 		body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
+	// 	}
+	// )
 	const responseBody = await response.json()
 
 	if (responseBody.error)
