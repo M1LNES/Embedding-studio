@@ -180,8 +180,11 @@ apiRouter.get('/callback', async (req, res) => {
  */
 apiRouter.get('/public-api-token/:id', async (req, res) => {
 	const { id } = req.params
-
+	console.log('HLEDAME ', id)
+	console.log('POLE ', publicApiTokenRequests)
 	const tokenObject = publicApiTokenRequests.find((obj) => obj.requestID === id)
+	console.log('nenasel ', tokenObject)
+
 	if (tokenObject) {
 		res.send(tokenObject)
 	} else {
