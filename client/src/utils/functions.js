@@ -64,6 +64,7 @@ export async function getPublicApiToken(id) {
 			})
 			if (tokenResponse.ok) {
 				token = await tokenResponse.json()
+				console.log(token)
 				token = token.token
 			}
 		}
