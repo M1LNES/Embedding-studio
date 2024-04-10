@@ -41,10 +41,12 @@ apiRouter.post('/add-omni-request', async (req, res) => {
  */
 apiRouter.post('/add-public-api-request', async (req, res) => {
 	const { requestID, token } = req.body
-
+	console.log('JSEM TU')
 	const newRequest = { requestID, token }
+	console.log('REQUEST ', newRequest)
 
 	publicApiTokenRequests.push(newRequest)
+	console.log('REQUESTY ', publicApiTokenRequests)
 
 	res
 		.status(200)
