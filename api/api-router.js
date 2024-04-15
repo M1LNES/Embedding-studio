@@ -122,7 +122,7 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 
 	if (index !== -1) {
 		omniStudioApiTokenRequests[index].token = responseBody
-		console.log(omniStudioApiTokenRequests[index].token)
+		console.log('NAHRADIM:', omniStudioApiTokenRequests[index].token)
 	} else {
 		console.error('Object not found with id:', req.query.state)
 	}
@@ -245,9 +245,8 @@ apiRouter.get(
 			req.headers['x-ostoken'] !== 'undefined'
 				? req.headers['x-ostoken']
 				: process.env.OMNI_API_TOKEN
-
 		try {
-			const pathUrl = process.env.OMNI_STUDIO_API_URL + '/0/users/me'
+			const pathUrl = '/api/0/users/me'
 			const publicApiUrl = process.env.PUBLIC_API_URL + '/3/omni-studio'
 
 			const payload = {
@@ -255,7 +254,7 @@ apiRouter.get(
 				path: pathUrl,
 				headers: {
 					Accept: 'application/json',
-					Authorization: `Bearer ${omniApiToken}`,
+					authorization: `Bearer ${omniApiToken}`,
 				},
 			}
 

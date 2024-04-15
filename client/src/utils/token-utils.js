@@ -41,7 +41,7 @@ export const checkOmniStudioTokenValidity = async (omniToken, publicToken) => {
 		})
 
 		const data = await response.json()
-		if (!response.ok) {
+		if (data.error) {
 			return { valid: false, message: data.error }
 		}
 

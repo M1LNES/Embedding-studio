@@ -146,7 +146,6 @@ const Playground = () => {
 				localStorage.getItem('omni-studio-api-access-token'),
 				localStorage.getItem('public-api-access-token')
 			)
-
 			dispatch(
 				changeOmniStudioTokenState({
 					valid: responseObject.valid,
@@ -235,7 +234,6 @@ const Playground = () => {
 		const token = await getPublicApiToken(id)
 
 		if (token !== null) {
-			console.log(token)
 			localStorage.setItem('public-api-access-token', token.access_token)
 			localStorage.setItem('public-api-refresh-token', token.refresh_token)
 			checkTokenAvailability()
