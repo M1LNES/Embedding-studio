@@ -122,6 +122,7 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 
 	if (index !== -1) {
 		omniStudioApiTokenRequests[index].token = responseBody
+		console.log(omniStudioApiTokenRequests[index].token)
 	} else {
 		console.error('Object not found with id:', req.query.state)
 	}

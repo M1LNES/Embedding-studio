@@ -54,7 +54,7 @@ export async function getPublicApiToken(id) {
 			body: JSON.stringify({ requestID: id, token: null }),
 		})
 		while (token === null) {
-			await sleep(10)
+			await sleep(500)
 
 			const tokenResponse = await fetch(`/api/public-api-token/${id}`, {
 				method: 'GET',
