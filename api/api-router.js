@@ -41,13 +41,8 @@ apiRouter.post('/add-omni-request', async (req, res) => {
  */
 apiRouter.post('/add-public-api-request', async (req, res) => {
 	const { requestID, token } = req.body
-	console.log('JSEM TU')
 	const newRequest = { requestID, token }
-	console.log('REQUEST ', newRequest)
-
 	publicApiTokenRequests.push(newRequest)
-	console.log('REQUESTY ', publicApiTokenRequests)
-
 	res
 		.status(200)
 		.json({ message: 'Request added to PublicApiTokenRequests array' })
@@ -74,7 +69,6 @@ function getAuthorization() {
 apiRouter.get('/callback-omni-token', async (req, res) => {
 	const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
 
-	console.log(uri, omniStudioApiTokenRequests, req.query.code)
 	const response = await fetch(
 		`${process.env.PUBLIC_API_URL}/3/omni-studio/oauth2/token`,
 		{
@@ -97,21 +91,6 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 		}
 	)
 
-	console.log(res)
-	// const response = await fetch(
-	// 	`${process.env.OAUTH_PROVIDER_OMNI_STUDIO}/token`,
-	// 	{
-	// 		method: 'post',
-	// 		headers: {
-	// 			Accept: 'application/json',
-	// 			'Content-Type': 'application/x-www-form-urlencoded',
-	// 			Authorization: `Basic ${Buffer.from(
-	// 				`${process.env.CLIENT_ID_OMNI_STUDIO}:${process.env.CLIENT_SECRET_OMNI_STUDIO}`
-	// 			).toString('base64')}`,
-	// 		},
-	// 		body: `grant_type=authorization_code&code=${req.query.code}&redirect_uri=${uri}`,
-	// 	}
-	// )
 	const responseBody = await response.json()
 
 	if (responseBody.error)
@@ -122,7 +101,6 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 
 	if (index !== -1) {
 		omniStudioApiTokenRequests[index].token = responseBody
-		console.log('NAHRADIM:', omniStudioApiTokenRequests[index].token)
 	} else {
 		console.error('Object not found with id:', req.query.state)
 	}
@@ -139,8 +117,6 @@ apiRouter.get('/callback-omni-token', async (req, res) => {
 apiRouter.get('/callback', async (req, res) => {
 	if (res.req.query.code) {
 		const uri = `${req.protocol}://${req.get('host')}/api${req.path}`
-		console.log(uri, publicApiTokenRequests, req.query.code)
-		console.log('STATE: ', req.query.state)
 		const url = `${process.env.OAUTH_PROVIDER_PUBLIC_API_URL}/token`
 		const params = {
 			method: 'post',
@@ -153,15 +129,12 @@ apiRouter.get('/callback', async (req, res) => {
 		}
 
 		const tokenResponse = await (await fetch(url, params)).json()
-		console.log('TR:', tokenResponse)
 		const index = publicApiTokenRequests.findIndex(
 			(obj) => obj.requestID === req.query.state
 		)
-		console.log('ondex:', index)
 
 		if (index !== -1) {
 			publicApiTokenRequests[index].token = tokenResponse
-			console.log('POTOM: ', publicApiTokenRequests[index].token)
 		} else {
 			console.error('Object not found with id:', req.query.state)
 		}
@@ -181,10 +154,7 @@ apiRouter.get('/callback', async (req, res) => {
  */
 apiRouter.get('/public-api-token/:id', async (req, res) => {
 	const { id } = req.params
-	console.log('HLEDAME ', id)
-	console.log('POLE ', publicApiTokenRequests)
 	const tokenObject = publicApiTokenRequests.find((obj) => obj.requestID === id)
-	console.log('nenasel ', tokenObject)
 
 	if (tokenObject) {
 		res.send(tokenObject)
