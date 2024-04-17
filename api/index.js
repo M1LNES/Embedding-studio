@@ -20,7 +20,7 @@ app.use(cors())
 // Parse JSON bodies
 app.use(express.json())
 
-app.use(httpsRedirect)
+// app.use(httpsRedirect)
 
 // Load environment variables from .env file
 require('dotenv').config()
