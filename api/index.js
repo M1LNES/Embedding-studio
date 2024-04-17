@@ -5,7 +5,7 @@ const nonApiRouter = require('./non-api-router')
 const { routes } = require('empli-embed') // Import routes from 'empli-embed' module
 const cors = require('cors')
 const path = require('path')
-const httpsRedirect = require('./https-redirect')
+const httpsRedirect = require('../server/https-redirect')
 
 // Import middleware for handling history fallback
 const historyApiFallback = require('express-history-api-fallback')
@@ -20,7 +20,7 @@ app.use(cors())
 // Parse JSON bodies
 app.use(express.json())
 
-// app.use(httpsRedirect)
+app.use(httpsRedirect)
 
 // Load environment variables from .env file
 require('dotenv').config()
