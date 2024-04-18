@@ -207,14 +207,13 @@ const catchErr = (fn) => async (req, res, next) => {
 apiRouter.get(
 	'/omni-studio-me-endpoint',
 	catchErr(async (req, res) => {
+		console.log(req.headers['x-ostoken'])
 		const publicApiToken =
 			req.headers['x-pbtoken'] !== 'undefined'
 				? req.headers['x-pbtoken']
 				: process.env.ACCESS_TOKEN
-		const omniApiToken =
-			req.headers['x-ostoken'] !== 'undefined'
-				? req.headers['x-ostoken']
-				: process.env.OMNI_API_TOKEN
+		const omniApiToken = req.headers['x-ostoken']
+
 		try {
 			const pathUrl = '/api/0/users/me'
 			const publicApiUrl = process.env.PUBLIC_API_URL + '/3/omni-studio'
