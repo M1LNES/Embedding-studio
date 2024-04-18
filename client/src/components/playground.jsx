@@ -40,6 +40,7 @@ import {
 	parseJSON,
 	parseToInteger,
 	makeRequestID,
+	getTokensFromLocalStorage,
 } from '../utils/functions'
 import {
 	checkPublicApiTokenValidity,
@@ -296,13 +297,6 @@ const Playground = () => {
 		)}\nOMNI_API_TOKEN=${localStorage.getItem('omni-studio-api-access-token')}`
 
 		navigator.clipboard.writeText(envText)
-	}
-
-	const getTokensFromLocalStorage = () => {
-		return {
-			OMNI_API_TOKEN: localStorage.getItem('omni-studio-api-access-token'),
-			ACCESS_TOKEN: localStorage.getItem('public-api-access-token'),
-		}
 	}
 
 	return (

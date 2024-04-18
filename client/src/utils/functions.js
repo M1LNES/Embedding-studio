@@ -140,3 +140,16 @@ export const makeRequestID = () => {
 	}
 	return result
 }
+
+/**
+ * Retrieves tokens from the local storage.
+ * @returns {Object} An object containing tokens fetched from local storage.
+ * - OMNI_API_TOKEN: The Omni Studio API access token retrieved from local storage.
+ * - ACCESS_TOKEN: The Public API access token retrieved from local storage.
+ */
+export const getTokensFromLocalStorage = () => {
+	return {
+		OMNI_API_TOKEN: localStorage.getItem('omni-studio-api-access-token'),
+		ACCESS_TOKEN: localStorage.getItem('public-api-access-token'),
+	}
+}

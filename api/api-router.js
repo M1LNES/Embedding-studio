@@ -207,7 +207,6 @@ const catchErr = (fn) => async (req, res, next) => {
 apiRouter.get(
 	'/omni-studio-me-endpoint',
 	catchErr(async (req, res) => {
-		console.log(req.headers['x-ostoken'])
 		const publicApiToken =
 			req.headers['x-pbtoken'] !== 'undefined'
 				? req.headers['x-pbtoken']
