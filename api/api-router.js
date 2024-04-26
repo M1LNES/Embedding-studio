@@ -208,7 +208,8 @@ apiRouter.get(
 	'/omni-studio-me-endpoint',
 	catchErr(async (req, res) => {
 		const publicApiToken =
-			req.headers['x-pbtoken'] !== 'undefined'
+			req.headers['x-pbtoken'] !== 'undefined' &&
+			req.headers['x-pbtoken'] !== 'null'
 				? req.headers['x-pbtoken']
 				: process.env.ACCESS_TOKEN
 		const omniApiToken = req.headers['x-ostoken']
