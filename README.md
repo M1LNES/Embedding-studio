@@ -8,10 +8,16 @@ To start Embedding Studio, just use:
 npm run dev
 ```
 
-To build Embedding Studio, just use:
+To build Embedding Studio, just use
 
-```cmd title="Starting app"
+```cmd title="Build"
 npm run build
+```
+
+and then start it by
+
+```cmd title="Starting built app"
+npm run start
 ```
 
 Make sure that all variables in .env file are set such as:
