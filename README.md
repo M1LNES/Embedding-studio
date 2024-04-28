@@ -1,5 +1,5 @@
 # Read ME
-
+## Installing and running app
 Embedding Studio for previewing widgets and for creating Public API and Omni API tokens.
 
 To start Embedding Studio, just use:
@@ -47,3 +47,14 @@ CLIENT_ID_PUBLIC_API - public API ID
 PUBLIC_API_URL - URL of public API
 
 OMNI_STUDIO_API_URL - URL of Omni Studio
+
+## Suite account
+To be able to create tokens, you must be logged into Suite account. This can be provided by Emplifi employees.
+
+## VPN
+To be able to create omni API tokens, you must be logged on VPN. For that, you will need to:
+1. Download viscosity
+2. Generate certificate and recieve credentionals - this is provided by employees from Emplifi
+3. Attach certificate and insert received credentionals (you will receive manual how to set up as well)
+4. Run the VPN
+  
