@@ -1,5 +1,5 @@
 # Read ME
-You should be using Node.js version 18+.
+You should be using Node.js version 18+. (developed on 20)
 ## Installing and running app
 Embedding Studio for previewing widgets and for creating Public API and Omni API tokens.
 
