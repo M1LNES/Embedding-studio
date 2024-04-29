@@ -27,27 +27,27 @@ OMNI_API_TOKEN - Omni token
 
 PUBLIC_API_TOKEN - Public token
 
-OAUTH_PROVIDER_OMNI_STUDIO - OAuth provider for generating Omni API tokens
+OAUTH_PROVIDER_OMNI_STUDIO - OAuth provider for generating Omni API tokens - `https://omni-studio.app.ccl/oauth2`
 
-SCOPE_PUBLIC_API - api.read
+SCOPE_PUBLIC_API - `api.read`
 
 CALLBACK_URL_PUBKIC_API - callback URL for public api
 
 CALLBACK_URL_OMNI_STUDIO - callback URL for omni api
 
-CLIENT_SECRET_OMNI_STUDIO - omni studio secret
+CLIENT_SECRET_OMNI_STUDIO - omni studio secret - provided by employee
 
-CLIENT_ID_OMNI_STUDIO - omni studio ID
+CLIENT_ID_OMNI_STUDIO - omni studio ID - provided by employee
 
-OAUTH_PROVIDER_PUBLIC_API_URL - OAuth provider for generating Public API tokens
+OAUTH_PROVIDER_PUBLIC_API_URL - OAuth provider for generating Public API tokens - `https://3348d0628f75ab43fe445e17eb650c1b.sbksapps.com/oauth2/0`
 
-CLIENT_SECRET_PUBLIC_API - public API secret
+CLIENT_SECRET_PUBLIC_API - public API secret - provided by employee
 
-CLIENT_ID_PUBLIC_API - public API ID
+CLIENT_ID_PUBLIC_API - public API ID - provided by employee
 
-PUBLIC_API_URL - URL of public API
+PUBLIC_API_URL - URL of public API - `https://3348d0628f75ab43fe445e17eb650c1b.sbksapps.com`
 
-OMNI_STUDIO_API_URL - URL of Omni Studio
+OMNI_STUDIO_API_URL - URL of Omni Studio - `https://omni-studio.app.ccl/api`
 
 ## Suite account
 To be able to create tokens, you must be logged into Suite account. This can be provided by Emplifi employees.
