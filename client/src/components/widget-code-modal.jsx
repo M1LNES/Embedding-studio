@@ -8,6 +8,7 @@ import { Widget } from 'empli-embed'
 import { Dialog } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { closeModal } from '../state/playground-ui-slice'
+import { getTokensFromLocalStorage } from '../utils/functions'
 
 const MODAL_ID = 'codeModal'
 const isOpen = (state) => state.playgroundUI.modalOpen[MODAL_ID]
@@ -57,6 +58,7 @@ const WidgetCodeModal = () => {
 						showConfig={visualizationState.showConfig}
 						showConfigRevealed={visualizationState.showConfigRevealed}
 						style={visualizationState.style}
+						tokenFunc={getTokensFromLocalStorage}
 					/>
 				) : null}
 				<Box display='flex' flexDirection='column' flex={1} marginLeft='10px'>
